@@ -9,7 +9,7 @@ class Calc(App):
     def build(self):
         self.b_l = BoxLayout(orientation='vertical')
         self.layout = GridLayout(cols=4, row_force_default=False, row_default_height=20)
-        self.calc = TextInput(text='', multiline=True)
+        self.calc = TextInput(text='', multiline=True, font_size=60)
         self.calc.size_hint = (1, 0.2)
         self.b_l.add_widget(self.calc)
         for i in range(10):
