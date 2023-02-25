@@ -21,10 +21,10 @@ class Calc(App):
             btn.bind(on_press=self.txt_insert)
             self.layout.add_widget(btn)
 
-        clear = Button(text="AC", size_hint=(1, 0.5))
+        clear = self.add_btn("AC")
         clear.bind(on_press=self.clear)
         self.layout.add_widget(clear)
-        d = Button(text="DEL", size_hint=(1, 0.5))
+        d = self.add_btn("DEL")
         d.bind(on_press=self.delete)
         self.layout.add_widget(d)
         btn_o = self.add_btn("(")
@@ -36,14 +36,14 @@ class Calc(App):
         btn_t = self.add_btn(".")
         btn_t.bind(on_press=self.txt_insert)
         self.layout.add_widget(btn_t)
-        calculate = Button(text="=", size_hint=(1, 0.5))
+        calculate = self.add_btn("=")
         calculate.bind(on_press=self.calculate)
         self.layout.add_widget(calculate)
         self.b_l.add_widget(self.layout)
         return self.b_l
 
     def add_btn(self, text):
-        return Button(text=text, size_hint=(1, 0.5))
+        return Button(text=text, size_hint=(1, 0.5), font_size=50)
 
     def txt_insert(self, text):
         self.calc.text += text.text
