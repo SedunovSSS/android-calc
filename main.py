@@ -9,56 +9,49 @@ class Calc(App):
     def build(self):
         self.b_l = BoxLayout(orientation='vertical')
         self.layout = GridLayout(cols=4, row_force_default=False, row_default_height=20)
-        self.calc = TextInput(text='', multiline=True, font_size=60)
-        self.calc.size_hint = (1, 0.2)
+        self.calc = TextInput(text='', multiline=True, font_size=80)
+        self.calc.size_hint = (1, 0.25)
         self.b_l.add_widget(self.calc)
-        for i in range(10):
-            btn = self.add_btn(str(i))
-            btn.bind(on_press=self.txt_insert)
-            self.layout.add_widget(btn)
-        for i in ['+', '-', '*', '/']:
-            btn = self.add_btn(i)
-            btn.bind(on_press=self.txt_insert)
+        self.calc.text = "0"
+        self.btns = ['1', '2', '3', 'DEL',
+                     '4', '5', '6', 'AC',
+                     '7', '8', '9', '0',
+                     '+', '-', '*', '/',
+                     '(', ')', '.', '='
+                     ]
+        for i in self.btns:
+            btn = Button(text=i, size_hint=(1, 0.5), font_size=60)
+            if i == "AC":
+                btn.bind(on_press=self.clear)
+            elif i == "DEL":
+                btn.bind(on_press=self.delete)
+            elif i == "=":
+                btn.bind(on_press=self.calculate)
+            else:
+                btn.bind(on_press=self.txt_insert)
             self.layout.add_widget(btn)
 
-        clear = self.add_btn("AC")
-        clear.bind(on_press=self.clear)
-        self.layout.add_widget(clear)
-        d = self.add_btn("DEL")
-        d.bind(on_press=self.delete)
-        self.layout.add_widget(d)
-        btn_o = self.add_btn("(")
-        btn_o.bind(on_press=self.txt_insert)
-        self.layout.add_widget(btn_o)
-        btn_c = self.add_btn(")")
-        btn_c.bind(on_press=self.txt_insert)
-        self.layout.add_widget(btn_c)
-        btn_t = self.add_btn(".")
-        btn_t.bind(on_press=self.txt_insert)
-        self.layout.add_widget(btn_t)
-        calculate = self.add_btn("=")
-        calculate.bind(on_press=self.calculate)
-        self.layout.add_widget(calculate)
         self.b_l.add_widget(self.layout)
         return self.b_l
 
-    def add_btn(self, text):
-        return Button(text=text, size_hint=(1, 0.5), font_size=50)
-
     def txt_insert(self, text):
+        if self.calc.text == "0":
+            self.calc.text = ""
         self.calc.text += text.text
 
     def calculate(self, calc):
         try:
             result = str(eval(self.calc.text))
         except:
-            result = ""
+            result = "0"
         self.calc.text = result
 
     def clear(self, calc):
-        self.calc.text = ""
+        self.calc.text = "0"
 
     def delete(self, calc):
+        if self.calc.text == "":
+            self.calc.text = "0"
         self.calc.text = self.calc.text[:-1]
 
 
