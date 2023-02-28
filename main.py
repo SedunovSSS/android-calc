@@ -50,9 +50,9 @@ class Calc(App):
         self.calc.text = "0"
 
     def delete(self, calc):
+        self.calc.text = self.calc.text[:-1]
         if self.calc.text == "":
             self.calc.text = "0"
-        self.calc.text = self.calc.text[:-1]
 
 
 if __name__ == "__main__":
